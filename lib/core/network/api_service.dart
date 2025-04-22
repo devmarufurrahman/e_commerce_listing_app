@@ -12,7 +12,7 @@ class ApiService {
         'skip': skip,
       });
     } catch(e){
-      rethrow;
+      throw Exception('Failed to load products: $e');
     }
   }
 
@@ -22,7 +22,7 @@ class ApiService {
         'q': query,
       });
     } catch(e){
-      rethrow;
+      throw Exception('Search failed: $e');
     }
   }
 
