@@ -1,5 +1,6 @@
 import 'package:e_commerce_listing_app/core/network/api_service.dart';
 import 'package:e_commerce_listing_app/features/product/data/models/product_model.dart';
+import 'package:e_commerce_listing_app/features/product/data/models/product_response_model.dart';
 
 class ProductRepository{
   final ApiService apiService;
@@ -7,22 +8,15 @@ class ProductRepository{
   ProductRepository(this.apiService);
 
   // get product response from the API
-  Future<Product> getProducts({int? limit, int? skip}) async {
-    try{
-      final response = await apiService.getProducts(limit: limit, skip: skip);
-      return Product.fromJson(response.data);
-    } catch(e){
-      rethrow;
-    }
+  Future<ProductResponse> getProducts({int limit = 10, int skip = 0}) async {
+    final response = await apiService.getProducts(limit: limit, skip: skip);
+    return ProductResponse.fromJson(response.data);
   }
 
-  Future<Product> searchProducts(String query) async {
-    try {
-      final response = await apiService.searchProducts(query);
-      return Product.fromJson(response.data);
-    } catch (e) {
-      rethrow;
-    }
+  Future<List<Product>> searchProducts(String query) async {
+    final response = await apiService.searchProducts(query);
+    List data = response.data['products'];
+    return data.map((json) => Product.fromJson(json)).toList();
   }
 
 

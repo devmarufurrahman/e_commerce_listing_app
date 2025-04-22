@@ -9,10 +9,5 @@ final productRepositoryProvider = Provider(
     (ref) => ProductRepository(ref.read(apiServiceProvider))
 );
 
-final productListProvider = FutureProvider<Product>((ref) async {
-  final repository = ref.read(productRepositoryProvider);
-  final response = await repository.getProducts();
-  return response;
-});
 
 
