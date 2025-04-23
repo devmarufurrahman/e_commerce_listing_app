@@ -34,7 +34,9 @@ dependencies:
   flutter_riverpod: ^2.6.1
   dio: ^5.8.0+1
   cached_network_image: ^3.4.1
-  intl: ^0.20.2
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  connectivity_plus: ^6.1.4
 
 dev_dependencies:
   flutter_test:
