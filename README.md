@@ -85,7 +85,7 @@ Why Riverpod?
 Run all tests:
 ```bash
 flutter test
-
+```
 #Folder Structure Overview
 lib/
 ├── core/
@@ -108,12 +108,12 @@ lib/
 
 | Home Screen | Sort | Search |
 |-------------|----------------|------------------|
-| ![Home](./HomeScreen.png) | ![Sort](./HomeSortScreen.png) | ![Search](./SearchScreen.png) | ![Favourite](./HomeFavourite.png)
+| ![Home](/HomeScreen.png) | ![Sort](/HomeSortScreen.png) | ![Search](/SearchScreen.png) | ![Favourite](/HomeFavourite.png)
 
 
 ## 👨‍💻 Author
 
-**Md Marufur Rahman**  
+*Md Marufur Rahman*
 📱 Mobile App Developer  
 🔗 [LinkedIn](https://www.linkedin.com/in/dev-marufur-rahman/)  
 🌐 [Portfolio](https://devmarufurrahman.xyz/)  
