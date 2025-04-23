@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../../core/utils/network_helper.dart';
 import '../../provider/product_provider.dart';
 import '../../widgets/product_card.dart';
 import '../../widgets/sort_sheet.dart';
@@ -51,6 +52,13 @@ class _HomePageState extends ConsumerState<HomePage> {
 
 
   Future<void> loadInitialProducts() async {
+    
+    if (!await NetworkHelper.isOnline()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Offline mode: Showing cached data")),
+      );
+    }
+
     final response = await ref
         .read(productListProvider(currentPage).future)
         .catchError((e) => []);
