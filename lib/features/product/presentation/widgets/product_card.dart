@@ -2,16 +2,22 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce_listing_app/features/product/data/models/product_model.dart';
 import 'package:flutter/material.dart';
 
-class ProductCard extends StatelessWidget{
+class ProductCard extends StatelessWidget {
   final Product product;
+  final bool isFavourite;
+  final VoidCallback onFavouriteToggle;
 
-  const ProductCard({super.key, required this.product});
+  const ProductCard(
+      {super.key,
+      required this.product,
+      required this.isFavourite,
+      required this.onFavouriteToggle});
 
   @override
   Widget build(BuildContext context) {
     final price = product.price;
     final discount = product.discountPercentage;
-    final discountedPrice = (price * (1 - discount/100)).truncate();
+    final discountedPrice = (price * (1 - discount / 100)).truncate();
 
     return Stack(
       children: [
@@ -24,12 +30,11 @@ class ProductCard extends StatelessWidget{
                 child: CachedNetworkImage(
                   imageUrl: product.thumbnail,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      CircularProgressIndicator(value: downloadProgress.progress),
+                      CircularProgressIndicator(
+                          value: downloadProgress.progress),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),
-
-
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -39,8 +44,6 @@ class ProductCard extends StatelessWidget{
                   style: const TextStyle(fontWeight: FontWeight.w600),
                 ),
               ),
-
-
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
                 child: Row(
@@ -51,10 +54,9 @@ class ProductCard extends StatelessWidget{
                     Text(
                       "\$${product.price.truncate()}",
                       style: const TextStyle(
-                        decoration: TextDecoration.lineThrough,
-                        color: Colors.grey,
-                          fontSize: 12
-                      ),
+                          decoration: TextDecoration.lineThrough,
+                          color: Colors.grey,
+                          fontSize: 12),
                     ),
                     const SizedBox(width: 4),
                     Text(
@@ -64,7 +66,6 @@ class ProductCard extends StatelessWidget{
                   ],
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 child: Row(
@@ -72,30 +73,30 @@ class ProductCard extends StatelessWidget{
                     const Icon(Icons.star, size: 16, color: Colors.orange),
                     const SizedBox(width: 4),
                     Text("${product.rating}"),
-
-                    const SizedBox(width: 8,),
-
+                    const SizedBox(
+                      width: 8,
+                    ),
                     Text("(${product.stock})"),
-
                   ],
                 ),
               ),
-
-
             ],
           ),
         ),
-
         Positioned(
           top: 8,
           right: 8,
-          child: CircleAvatar(
-            backgroundColor: Colors.white,
-            child: Icon(Icons.favorite_border, color: Colors.grey.shade600),
+          child: GestureDetector(
+            onTap: onFavouriteToggle,
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Icon(
+                isFavourite ? Icons.favorite : Icons.favorite_border,
+                color: isFavourite ? Colors.red : Colors.grey,
+              ),
+            ),
           ),
         ),
-
-
         if (product.stock == 0)
           Positioned(
             top: 8,
@@ -112,9 +113,7 @@ class ProductCard extends StatelessWidget{
               ),
             ),
           ),
-
       ],
     );
   }
-
 }

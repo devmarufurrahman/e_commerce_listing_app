@@ -19,7 +19,8 @@ class SortSheet extends StatelessWidget {
           ListTile(
             title: const Text("Price: Low to High"),
             onTap: () {
-              List<Product> sorted = [...products]..sort((a, b) => a.price.compareTo(b.price));
+              List<Product> sorted = [...products]
+                ..sort((a, b) => a.price.compareTo(b.price));
               onSorted(sorted);
               Navigator.pop(context);
             },
@@ -27,7 +28,8 @@ class SortSheet extends StatelessWidget {
           ListTile(
             title: const Text("Price: High to Low"),
             onTap: () {
-              List<Product> sorted = [...products]..sort((a, b) => b.price.compareTo(a.price));
+              List<Product> sorted = [...products]
+                ..sort((a, b) => b.price.compareTo(a.price));
               onSorted(sorted);
               Navigator.pop(context);
             },
@@ -35,7 +37,8 @@ class SortSheet extends StatelessWidget {
           ListTile(
             title: const Text("Rating"),
             onTap: () {
-              List<Product> sorted = [...products]..sort((a, b) => b.rating.compareTo(a.rating));
+              List<Product> sorted = [...products]
+                ..sort((a, b) => b.rating.compareTo(a.rating));
               onSorted(sorted);
               Navigator.pop(context);
             },
