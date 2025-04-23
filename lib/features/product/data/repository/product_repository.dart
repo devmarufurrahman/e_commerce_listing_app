@@ -18,11 +18,21 @@ class ProductRepository {
       await box.put(cacheKey, responseData);
 
       return ProductResponse.fromJson(responseData);
-    } catch (_) {
+    } catch (e) {
+      print("API failed. Trying Hive fallback for $cacheKey");
       final cachedData = box.get(cacheKey);
-      if (cachedData != null) {
-        return ProductResponse.fromJson(Map<String, dynamic>.from(cachedData));
+
+      if (cachedData != null && cachedData is Map) {
+        try {
+          final parsedMap = Map<String, dynamic>.from(cachedData as Map);
+          print("Hive cache found for $cacheKey");
+          return ProductResponse.fromJson(parsedMap);
+        } catch (err) {
+          print("Failed to parse cached data: $err");
+          throw Exception('Invalid cached data');
+        }
       } else {
+        print("No Hive cache found for $cacheKey");
         throw Exception('No data available offline.');
       }
     }

@@ -52,16 +52,21 @@ class _HomePageState extends ConsumerState<HomePage> {
 
 
   Future<void> loadInitialProducts() async {
-    
-    if (!await NetworkHelper.isOnline()) {
+    final isConnected = await NetworkHelper.isOnline();
+
+    if (!isConnected) {
+      print("Offline detected");
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Offline mode: Showing cached data")),
+        const SnackBar(content: Text("You are offline. Showing cached data.")),
       );
     }
 
     final response = await ref
         .read(productListProvider(currentPage).future)
-        .catchError((e) => []);
+        .catchError((e) {
+      print("Error from provider: $e");
+      return [];
+    });
     setState(() {
       products = response;
     });
