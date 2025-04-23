@@ -87,6 +87,7 @@ Run all tests:
 flutter test
 ```
 #Folder Structure Overview
+```bash
 lib/
 ├── core/
 │   ├── network/              → ApiService (Dio wrapper)
@@ -103,6 +104,7 @@ lib/
 │           ├── widgets/      → ProductCard, sort sheet
 │           └── provider/     → Riverpod providers
 └── main.dart
+```
 
 ## 📸 Screenshots
 
